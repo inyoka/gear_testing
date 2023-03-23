@@ -3,16 +3,9 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent)) # Hack sys.path to import from parent directory
 import tkinter as tk
 import ttkbootstrap as ttks
-
-from tkinter import ttk, PhotoImage
 from tkinter.messagebox import askokcancel
-
 from gauge.models import Gear
 from pages import *
-# import json
-# import global_vars as g_
-
-from pprint import pprint
 
 
 class MainApplication(ttk.Frame):
@@ -24,7 +17,6 @@ class MainApplication(ttk.Frame):
         ttk.Frame.__init__(self, root)
         root.configure(borderwidth=15, relief="flat")
         
-        # g_['gear1'] = 50
         
         self.home_frame = HomeFrame(root)
         self.home_frame.grid(row=0, column=1, sticky="nsew")
@@ -72,8 +64,8 @@ class CalcFrame(ttk.Frame):
         self.frames = {}
         
         
-        self.frames["StartPage"] = StartPage(parent=container, controller=self, master=self.master)
-        self.frames["SpanForm"] = SpanForm(parent=container, controller=self, master=self.master)
+        self.frames["StartPage"] = StartPage(parent=container, controller=self, master=parent)
+        self.frames["SpanForm"] = SpanForm(parent=container, controller=self, master=parent)
 
 
         self.frames["StartPage"].grid(row=0, column=0, sticky="nsew")
@@ -96,8 +88,7 @@ class NavBar(ttk.Frame):
         
         self.gear_buttons = []
                 
-        self.myImage = PhotoImage(file='images/logo-sm.png')
-        ttk.Label(self, image=self.myImage).grid(row=0, column=0, padx=(0,0))
+        ttk.Label(self, text="Logo Place Holder").grid(row=0, column=0, padx=(0,0))
 
         title = ttk.Label(self, text="Precision Technologies Ltd", anchor="center", font=("Arial", 10), padding=5)
         title.grid(row=1, column=0, sticky="ew")
@@ -130,9 +121,7 @@ class EnterGear(ttk.Frame):
 
     def __init__(self, parent, controller):
         ttk.Frame.__init__(self, parent)
-        # print(g_["gear1"])    
-        # g_["gear1"] = 49
-        # print(g_["gear1"])    
+
         self.controller = controller
         self.desc = "Enter Gear"
         self.title_label = ttk.Label(self, text="Gear Specifications ...", font=("Arial", 14)).grid(row=0, columnspan=2, pady=(0, 30))

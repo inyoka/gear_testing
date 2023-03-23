@@ -18,7 +18,7 @@ class StartPage(ttk.Frame):
     def __init__(self, parent, controller, master):
         ttk.Frame.__init__(self, parent)
         self.desc = "Start Page"
-
+        self.master = master
         self.controller = controller
         self.grid(padx=20, pady=20, sticky="nsew")
         
@@ -26,10 +26,12 @@ class StartPage(ttk.Frame):
 
 
 class SpanForm(ttk.Frame):
-    def __init__(self, parent, master):
+    def __init__(self, parent, controller, master):
         super().__init__(parent)
         parent = parent
         self.desc = "Span"
+        self.master = master
+        self.controller = controller
         self.grid()
         self.title_label = tk.Label(self, text="Calculate Span Size:").grid(pady=10)
         
@@ -68,6 +70,7 @@ class SpanForm(ttk.Frame):
             num1 = float(self.num1_entry.get())
             num2 = float(self.num2_entry.get())
             
+            # This lines causes the error - AttributeError: '_tkinter.tkapp' object has no attribute 'gear'
             base_tangent, contact_diameter = self.master.gear.add(num1, num2)
 
                 
