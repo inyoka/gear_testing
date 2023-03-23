@@ -9,8 +9,10 @@ from tkinter.messagebox import askokcancel
 
 from gauge.models import Gear
 from pages import *
+# import json
+# import global_vars as g_
 
-
+from pprint import pprint
 
 
 class MainApplication(ttk.Frame):
@@ -30,7 +32,7 @@ class MainApplication(ttk.Frame):
         self.calc_frame = CalcFrame(root)
         self.calc_frame.grid(row=0, column=2, sticky="nsew")
 
-        nav_frame = NavBar(root, controller=self, home_frame=self.home_frame, calc_frame=self.calc_frame)
+        nav_frame = NavBar(root, home_frame=self.home_frame, calc_frame=self.calc_frame)
         nav_frame.grid(row=0, column=0, sticky="nsew")
 
 
@@ -61,7 +63,6 @@ def on_closing():
     if askokcancel("Quit", "Do you want to quit?"):
         root.destroy()
 
-
 class CalcFrame(ttk.Frame):
     
     def __init__(self, parent):
@@ -69,13 +70,17 @@ class CalcFrame(ttk.Frame):
         container = self
         container.grid(padx=20, pady=0, sticky="nsew")
         self.frames = {}
+        
+        
+        self.frames["StartPage"] = StartPage(parent=container, controller=self, master=self.master)
+        self.frames["SpanForm"] = SpanForm(parent=container, controller=self, master=self.master)
 
-        for sub_frame in (SimpleCalculator, StartPage, SpanForm, TtForm, SpttForm):
-            page_name = sub_frame.__name__
-            frame = sub_frame(parent=container, controller=self)
-            self.frames[page_name] = frame
-            frame.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
-        self.show_frame("SimpleCalculator")
+
+        self.frames["StartPage"].grid(row=0, column=0, sticky="nsew")
+        self.frames["SpanForm"].grid(row=0, column=0, sticky="nsew")
+
+            
+        self.show_frame("SpanForm")
 
 
     def show_frame(self, page_name):
@@ -86,7 +91,7 @@ class CalcFrame(ttk.Frame):
     
 
 class NavBar(ttk.Frame):
-    def __init__(self, parent, controller, home_frame, calc_frame):
+    def __init__(self, parent, home_frame, calc_frame):
         super(NavBar, self).__init__(parent)
         
         self.gear_buttons = []
@@ -173,6 +178,8 @@ class EnterGear(ttk.Frame):
         frame = self.controller.show_frame("ShowGear")
         frame.update_result(str(self.master.gear))
  
+
+
 
 class ShowGear(ttk.Frame):
 
