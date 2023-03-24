@@ -1,3 +1,7 @@
+""" Improved substantially by Thingamabobs from SO, but still needs work"""
+
+
+
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent)) # Hack sys.path to import from parent directory
