@@ -1,0 +1,26 @@
+
+Some suggestions:
+
+`self.title_label = ttk.Label(self, text="Calculations Pane").grid(row=0)`
+-> you will bind an attribute to None, compare stackoverflow.com/a/63079747/…
+
+`self.grid(padx=20, pady=20, sticky="nsew")`
+-> don't do this, while this works it is best practice to use the geometry methods in the definition of the master. Once your layout doesn't do what you want, you will spend all day searching where the geometry is messed up and where you do your geometry at all.
+
+`parent = parent`
+-> this is redundant and simply doesn't add any functionality to your code.
+
+`self.desc = "Span"`
+-> whenever you see repetitive code in your script, ask yourself if it is time to restructure your code. Having a function/method or class that does this stuff once and use this instead of writing the code over and over again.
+
+`ttk.Frame.__init__(self, parent)`
+-> while I like this approach it is 2023 now and `super()` has been around for some time, we should use it.
+
+`self.calculate_button = tk.Button(self, text="Calculate", command=lambda: self.calc_span())`
+-> use lambda if needed, here you can simply pass the reference of the method
+
+`self.result_label` is overwritten multiple times with None in SpanForm. Why ? :P
+
+`self.gear_buttons = []` you append None multiple times, why ? :D
+
+`super(NavBar, self).__init__(parent)` super creates the MRO due a algorithm now, you don't need to pass these arguments anymore, except you want to for different reasons.
