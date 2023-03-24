@@ -99,4 +99,5 @@ class Gear(object):
         elif self.type == 'Helical' :
             return helicalText(self)
 
-
+    def add(self, num1, num2):
+        return num1 + num2
